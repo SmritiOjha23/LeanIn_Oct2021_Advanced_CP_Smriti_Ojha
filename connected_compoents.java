@@ -20,36 +20,34 @@ class Codechef
 		    adj.get(u).add(v);
 		    adj.get(v).add(u);
 		}
-		System.out.println(dfsOfGraph(V, adj));
+		System.out.println(connectedComponents(V,adj));
 	}
-	public static ArrayList<Integer> dfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
+	public static int connectedComponents(int V, ArrayList<ArrayList<Integer>> adj) {
+	    int ans=0;
         int visited[]=new int[V];
-        ArrayList<Integer> ans=new ArrayList<Integer>();
         for(int i=0;i<V;i++)
         {
             if(visited[i]==0)
-                dfsrec(adj,i,visited,ans);
+            {
+                ans++;
+                dfsrec(adj,i,visited);
+            }
         }
         return ans;
     }
-    public static void dfsrec(ArrayList<ArrayList<Integer>> adj, int i, int visited[],ArrayList<Integer> ans)
+    public static void dfsrec(ArrayList<ArrayList<Integer>> adj, int i, int visited[])
     {
         visited[i]=1;
-        ans.add(i);
         for(int j:adj.get(i))
         {
             if(visited[j]==0)
-                dfsrec(adj,j,visited,ans);
+                dfsrec(adj,j,visited);
         }
     }
 }
 /*
 5 4
-0 1 
-0 2
-0 3 
-2 4
-
-output:
-[0, 1, 2, 4, 3]
+0 1 0 2 1 2 3 4
+Output:
+2
 */
